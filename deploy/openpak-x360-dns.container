@@ -1,0 +1,29 @@
+# SECONDARY host (draughts-server). Console DNS for the Xbox 360: a console's only knob is its DNS server,
+# so point it at 145.241.228.207. Host networking so the listener owns 10.0.0.22:53 (the box's private
+# address behind the public NAT); systemd-resolved holds only the 127.0.0.x stubs. Needs
+# net.ipv4.ip_unprivileged_port_start=53 (deploy/99-openpak-dns.conf) and x360-dns-fw.sh for the INPUT accept.
+[Unit]
+Description=OpenPak Xbox 360 console DNS (x360-dns) on the secondary, 53/udp+tcp
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=openpak-x360-dns
+Image=ghcr.io/openpak/x360-dns:latest
+AutoUpdate=registry
+Network=host
+ReadOnly=true
+DropCapability=ALL
+NoNewPrivileges=true
+User=10001:10001
+Environment=X360_DNS_ADDR=10.0.0.22:53
+Environment=X360_DNS_UPSTREAM=1.1.1.1:53
+Environment=X360_DNS_HOSTS=/etc/x360-dns/hosts
+Volume=%h/openpak/deploy/x360-dns.hosts:/etc/x360-dns/hosts:ro
+
+[Service]
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

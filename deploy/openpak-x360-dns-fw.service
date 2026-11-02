@@ -1,0 +1,12 @@
+[Unit]
+Description=OpenPak x360-dns: accept 53/udp+tcp
+After=network-online.target netfilter-persistent.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/etc/openpak/x360-dns-fw.sh
+
+[Install]
+WantedBy=multi-user.target

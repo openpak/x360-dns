@@ -1,0 +1,10 @@
+# x360-dns name map (hosts-style: "<ip> <name> [<name>...]", '#' starts a comment).
+# Served today.
+# Secondary (kdc, gateway, xexds):
+145.241.228.207 xemacs.xboxlive.com xeas.xboxlive.com xetgs.xboxlive.com xexds.xboxlive.com
+# Primary (Traefik):
+145.241.199.19 xncsi.xboxlive.com notice.xbox.com nexus.passport.com login.live.com
+145.241.199.19 progress.xboxlive.com profile.xboxlive.com content.xboxlive.com
+145.241.199.19 xuacs.xboxlive.com xnotify-production-origin.xboxlive.com
+# Not served yet: answered with the primary so the console fails against us, not against Microsoft.
+145.241.199.19 sts.xboxlive.com xam.xboxlive.com xlink.xboxlive.com msac.xboxlive.com macs.xbox.com
